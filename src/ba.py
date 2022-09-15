@@ -1,37 +1,44 @@
-"""Module for computing border arrays."""
+#import random
 
+def border_array(x):
+    border_array = [0]
+    for i in range(1, len(read)):
+        b = border_array[i - 1]
+        while True:
+            if read[b] == read[i]:
+                border_array.append(b + 1)
+                break
+            elif b == 0:
+                border_array.append(0)
+                break
+            else:
+                b = border_array[b-1]
+    return(border_array)
 
-def border_array(x: str) -> list[int]:
-    """
-    Construct the border array for x.
+#def generate_string(seed_string, length):
+#    string = ""
+#    for j in range(length):
+#            string += random.choice(seed_string)
+#    return(string)
 
-    >>> border_array("aaba")
-    [0, 1, 0, 1]
-    >>> border_array("ississippi")
-    [0, 0, 0, 1, 2, 3, 4, 0, 0, 1]
-    >>> border_array("")
-    []
-    """
-    return []  # FIXME
+def strict_border_array(x):
+    ba = border_array(x)
+    for i in range(len(ba) - 1):
+        if ba[i] == 0 or x[ba[i]] != x[i + 1]: #skips if border array is 0 or the characters after the borders don't match.
+            continue
+        else:
+            while ba[i] != 0 and x[ba[i]] == x[i + 1]:
+                ba[i] = ba[ba[i] - 1]
+    return(ba)
 
+#read = generate_string("abcdefghijklmnopqrstuvxyzæøå", 10**6)
+#bax = strict_border_array(read)
 
-def strict_border_array(x: str) -> list[int]:
-    """
-    Construct the strict border array for x.
+#for i in range(len(bax) - 1):
+#    if bax[i] == 0:
+#        continue
+#    assert read[0:bax[i]] == read[i - bax[i] + 1:i + 1], "is not a border"
+#    assert read[bax[i]] != read[i + 1]
 
-    A struct border array is one where the border cannot
-    match on the next character. If b is the length of the
-    longest border for x[:i+1], it means x[:b] == x[i-b:i+1],
-    but for a strict border, it must be the longest border
-    such that x[b] != x[i+1].
-
-    >>> strict_border_array("aaba")
-    [0, 1, 0, 1]
-    >>> strict_border_array("aaaba")
-    [0, 0, 2, 0, 1]
-    >>> strict_border_array("ississippi")
-    [0, 0, 0, 0, 0, 0, 4, 0, 0, 1]
-    >>> strict_border_array("")
-    []
-    """
-    return []  # FIXME
+#    print(i, read[0:bax[i]], read[i - bax[i] + 1:i + 1], bax[i], read[bax[i]], read[i + 1])
+#print(bax)
