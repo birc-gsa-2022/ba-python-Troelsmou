@@ -2,10 +2,10 @@
 
 def border_array(x):
     border_array = [0]
-    for i in range(1, len(read)):
+    for i in range(1, len(x)):
         b = border_array[i - 1]
         while True:
-            if read[b] == read[i]:
+            if read[b] == x[i]:
                 border_array.append(b + 1)
                 break
             elif b == 0:
